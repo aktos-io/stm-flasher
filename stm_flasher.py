@@ -68,6 +68,8 @@ class StmFlasher(object):
         """
         print "Manually setup the hardware: "
         print " 0. Make physical layer connection over %s" % phy_layer
+        if phy_layer == "uart":
+            print "WARNING: UART settings MUST be: 115200baud, 8E1"
         self.setup_phy()
         print " 1. Set `HIGH` the `Boot0` pin"
         print " 2. Send a negative pulse to `NRST` pin (`LOW` for a while, then `HIGH`)"
@@ -173,7 +175,7 @@ class StmFlasher(object):
                 if current_address + last_chunk_size == end_address:
                     print "this is last chunk"
                     max_chunk_size = last_chunk_size
-                    
+
             self.write_phy(StmCommand.read_mem)
             ans = self.read_phy()
             if ans == StmCommand.nack:
