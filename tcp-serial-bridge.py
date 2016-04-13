@@ -4,7 +4,7 @@ from aktos_dcs import *
 
 class SerialPortBridge(SerialPortReader):
     def prepare(self):
-        self.client = TcpClient(host="192.168.2.120",
+        self.client = TcpClient(host="localhost",
                            port=22334,
                            receiver=self.on_socket_receive)
         self.client.line_ending = ""
