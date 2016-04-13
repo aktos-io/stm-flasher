@@ -35,6 +35,7 @@ class ConnectionHandler(TcpHandlerActor):
         print "Preparig to connect stm"
         self.flasher.setup_hardware()
         self.flasher.wait_setup_hardware()
+        self.read_queue = Queue()
         self.flasher.upload_firmware('./ch.bin')
         if self.flasher.upload_successful():
             print "Upload is succesful"
@@ -51,7 +52,7 @@ class ConnectionHandler(TcpHandlerActor):
     def action(self):
         pass
 
-print "Started TcpServer on port 22334"
+print "Started TcpServer on port 1235"
 #TcpServerActor(address='0.0.0.0', port=22334)
-TcpServerActor(address='0.0.0.0', port=22334, handler=ConnectionHandler)
+TcpServerActor(address='0.0.0.0', port=1235, handler=ConnectionHandler)
 wait_all()
